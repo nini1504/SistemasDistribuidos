@@ -1,0 +1,18 @@
+CREATE TABLE conversas (
+    id_conversa INT AUTO_INCREMENT PRIMARY KEY,
+    id_paciente VARCHAR(11) NOT NULL,
+    id_medico INT NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_paciente) REFERENCES paciente(cpf),
+    FOREIGN KEY (id_medico) REFERENCES medico(crm)
+);
+
+CREATE TABLE mensagens (
+    id_mensagem INT AUTO_INCREMENT PRIMARY KEY,
+    id_conversa INT NOT NULL,
+    remetente ENUM('paciente', 'medico') NOT NULL,
+    mensagem TEXT NOT NULL,
+    data_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    lida BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (id_conversa) REFERENCES conversas(id_conversa)
+);
