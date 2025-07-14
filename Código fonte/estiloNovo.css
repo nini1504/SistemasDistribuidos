@@ -1,0 +1,776 @@
+/* ===== DEFINIÇÕES GERAIS ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background: url("imagens/fundo.png") no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+    margin: 0;
+    min-height: 100vh;
+    height: auto !important;
+    overflow-y: auto !important;
+    position: relative !important;
+  }
+  
+  .texto {
+    font-size: 0.5rem;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    color: #2c3e50;
+  }
+  
+  .texto-pequeno {
+    font-size: 0.8rem;
+    /* 80% do tamanho padrão */
+    line-height: 1.3;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+  }
+  
+  /* ===== CONTAINERS ===== */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  
+  .login-container {
+    max-width: 400px;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin: 0 auto;
+  }
+  
+  .cad-container {
+    width: 400px;
+    max-width: 90%;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin: 80px auto 20px auto;
+    /* Margem superior para compensar a navbar */
+  }
+  
+  /* ===== GRID LAYOUT ===== */
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .doctor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding-bottom: 30px;
+    /* Espaço extra abaixo dos cards */
+  }
+  
+  /* ===== TÍTULOS ===== */
+  h1,
+  .titulo-principal {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #2c3e50;
+  }
+  
+  .titulo-card {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #2c3e50;
+  }
+  
+  .titulo-avaliacoes {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    color: #2c3e50;
+  }
+  
+  /* ===== FORMULÁRIOS ===== */
+  form {
+    width: 100%;
+  }
+  
+  input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    background: #ffffff;
+    color: #2c3e50;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  input::placeholder {
+    color: #a0aec0;
+  }
+  
+  input:focus {
+    border-color: #4299e1;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+  }
+  
+  /* ===== BOTÕES ===== */
+  .botao {
+    background-color: #4299e1;
+    border: none;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0.5rem 0;
+    width: auto;
+  }
+  
+  .botao:hover {
+    background-color: #3182ce;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    transform: translateY(-1px);
+  }
+  
+  .botao-full {
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  .botoes-grupo {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  .botao-pequeno {
+    background-color: #4299e1;
+    border: none;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 6px;
+  }
+  
+  .botao-pequeno:hover {
+    background-color: #3182ce;
+  }
+  
+  .botao-confirmar {
+    background-color: #48bb78;
+  }
+  
+  .botao-confirmar:hover {
+    background-color: #38a169;
+  }
+  
+  .material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+    color: white;
+    padding-left: 10px;
+  }
+  
+  /* ===== LINKS ===== */
+  a {
+    color: #4299e1;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: #3182ce;
+    text-decoration: underline;
+  }
+  
+  a.botao {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  
+  a.botao:hover {
+    text-decoration: none;
+  }
+  
+  /* ===== CARDS ===== */
+  .card {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card-dados {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card-consultas {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+  }
+  
+  .doctor-card {
+    transition: transform 0.3s;
+    margin-bottom: 20px;
+    height: 100%;
+  }
+  
+  .doctor-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .results-section {
+    flex: 1;
+    padding: 50px 0;
+  }
+  
+  /* ===== PERFIL E AVATAR ===== */
+  .perfil-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .avatar {
+    width: 80px;
+    height: 80px;
+    background-color: #bee3f8;
+    color: #2b6cb0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* ===== DADOS PESSOAIS ===== */
+  .dados-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .dado-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  
+  .icone {
+    color: #4299e1;
+    font-size: 1.25rem;
+    margin-top: 0.25rem;
+  }
+  
+  .dado-conteudo {
+    flex: 1;
+  }
+  
+  .dado-label {
+    color: #4299e1;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+  
+  .dado-valor {
+    color: #2c3e50;
+  }
+  
+  /* ===== CONSULTAS ===== */
+  .consultas-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .consulta-item {
+    background-color: #f7fafc;
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border: 1px solid #e2e8f0;
+  }
+  
+  .consulta-especialidade {
+    color: #4299e1;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  
+  .consulta-medico {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+  
+  .consulta-detalhes {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  .consulta-data,
+  .consulta-horario {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .icone-pequeno {
+    color: #4299e1;
+    font-size: 0.875rem;
+  }
+  
+  .consulta-acoes {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  /* ===== BADGES - CORREÇÃO ===== */
+  .badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+  }
+  
+  .badge-confirmado {
+    background-color: #28a745 !important;
+  }
+  
+  .badge-pendente {
+    background-color: #ed8936 !important;
+  }
+  
+  /* ===== RESPONSIVIDADE ===== */
+  @media (min-width: 768px) {
+    .titulo-principal {
+      text-align: left;
+    }
+  
+    .grid-container {
+      grid-template-columns: 1fr 2fr;
+    }
+  
+    .consulta-item {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    .consulta-acoes {
+      align-items: flex-end;
+    }
+  
+    .login-container {
+      padding: 2.5rem;
+    }
+  
+    .botao {
+      padding: 0.75rem 2rem;
+    }
+  }
+  
+  /* ===== ANIMAÇÕES ===== */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .login-container,
+  .card {
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  /* ===== NAVEGAÇÃO ===== */
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(90deg, #11dadc, #0987d9);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    height: 70px; /* Altura fixa para o navbar */
+  }
+  
+  .navbar-custom .navbar-brand,
+  .navbar-custom .nav-link {
+    color: white !important;
+    font-size: 1.2rem;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+  }
+  
+  .logo span {
+    color: #4299e1;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .nav-links a {
+    color: #2c3e50;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    color: #4299e1;
+  }
+  
+  /* Ajuste para quando a navbar estiver presente */
+  body.with-navbar {
+    padding-top: 90px !important; /* Aumentado para dar mais espaço - valor maior que a altura do navbar */
+    display: block !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-y: auto !important;
+  }
+  
+  /* ===== FOOTER ===== */
+  .footer {
+    background-color: #395572;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    color: white;
+    margin-top: auto;
+    /* Isso é crucial para o footer ficar no rodapé */
+    width: 100%;
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .footer-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #2c3e50;
+  }
+  
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  
+  .footer-links a {
+    color: #4299e1;
+  }
+  
+  .footer-copyright {
+    margin-top: 1.5rem;
+    color: #718096;
+    font-size: 0.875rem;
+  }
+  
+  @media (min-width: 768px) {
+    .footer-content {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    .footer-links {
+      justify-content: flex-end;
+    }
+  }
+  
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  
+  /* ===== SEARCH RESULTS ===== */
+  .hero-section {
+    background: url("https://via.placeholder.com/1500x500") no-repeat center center / cover;
+    padding: 80px 0;
+    /* Reduzi o padding para diminuir a distância */
+    color: white;
+    text-align: center;
+  }
+  
+  .search-section {
+    background-color: #87ceeb;
+    /* Azul claro */
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .featured-section {
+    padding: 30px 0;
+    /* Reduzi o padding para diminuir a distância */
+  }
+  
+  .about-section {
+    background-color: #f8f9fa;
+    padding: 50px 0;
+    text-align: center;
+  }
+  
+  .navbar-custom {
+    background: linear-gradient(90deg, #11dadc, #0987d9);
+    padding: 20px 0;
+  }
+  
+  .navbar-custom .navbar-brand,
+  .navbar-custom .nav-link {
+    color: white !important;
+    font-size: 1.2rem;
+  }
+  
+  .navbar-custom .nav-link:hover {
+    color: #f8f9fa !important;
+  }
+  
+  /* ===== MEDICO ===== */
+  .div-medico {
+    display: grid;
+    grid-template-columns: 0.8fr 1fr 0.4fr;
+    gap: 30px;
+    align-items: start;
+    margin-top: 20px; /* Espaço adicional no topo */
+  }
+  
+  .foto-medico {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-left: 2.5rem;
+  }
+  .avatar-medico {
+    color: #666;
+    font-size: 110px; /* Tamanho proporcional ao container */
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    text-align: center;
+    margin-top: 3.5rem;
+    margin-left: 2.5rem;
+  }
+  .icone-agendamento {
+    font-size: 4rem;
+    text-align: center;
+    color: #4299e1;
+    margin-left: 35px;
+  }
+  
+  .agendamento-col {
+    margin-top: 3rem;
+    margin-right: 10rem;
+  }
+  
+  /* Estilos para edição de dados */
+  .botao-editar {
+    background: transparent;
+    border: none;
+    color: #2a6496;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-left: auto;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+  
+  .botao-editar:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .botao-editar.editando-ativo {
+    background-color: #2a6496;
+    color: white;
+  }
+  
+  .botao-editar i {
+    margin-right: 5px;
+  }
+  
+  .perfil-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .dado-editavel-conteudo[contenteditable="true"] {
+    border-bottom: 1px dashed #2a6496;
+    padding: 2px 4px;
+    outline: none;
+    background-color: #f8f9fa;
+    border-radius: 3px;
+    min-width: 200px;
+    display: inline-block;
+  }
+  
+  .dado-editavel-conteudo[contenteditable="true"]:focus {
+    background-color: #fff;
+    border-bottom: 1px solid #2a6496;
+  }
+  
+  .consulta-acoes {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  
+  .botao-deletar {
+    background-color: #ff1a1a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+  }
+  
+  .botao-deletar:hover {
+    background-color: #ff1a1a;
+  }
+  .login-select {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    padding-top: 0.5rem;
+  }
+  .item-login {
+    background: transparent;
+    border: none;
+    color: #0987d9;
+  }
+  
+  /* Adicione estas regras ao final do seu arquivo estiloNovo.css */
+  
+  /* Correção para permitir scroll em todas as páginas */
+  body {
+    min-height: 100vh; /* Muda de height para min-height */
+    height: auto !important; /* Sobrescreve a altura fixa */
+    overflow-y: auto !important; /* Garante que o scroll vertical funcione */
+    display: block; /* Substitui o flexbox que pode estar causando problemas */
+  }
+  
+  /* Para páginas que precisam manter o layout centralizado */
+  .centered-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  /* Ajuste para containers que podem estar limitando a altura */
+  .container,
+  .login-container,
+  .cad-container {
+    max-height: none;
+    overflow: visible;
+  }
+  
+  /* Ajuste para o layout com navbar fixa */
+  body.with-navbar {
+    padding-top: 80px;
+    display: block;
+    height: auto !important;
+    min-height: 100vh;
+  }
+  
+  /* Ajuste para o footer */
+  .footer {
+    position: relative; /* Não fixo */
+    bottom: auto;
+  }
+  
+  /* Ajuste para containers de conteúdo */
+  .card,
+  .card-dados,
+  .card-consultas {
+    overflow: visible;
+  }
+  
+  /* Ajuste para a div-medico que usa grid */
+  .div-medico {
+    overflow: visible;
+    height: auto;
+  }
+  
