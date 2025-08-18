@@ -1,0 +1,173 @@
+[
+    {
+        "id": "06a54b7b76e2798c",
+        "type": "tab",
+        "label": "Fluxo 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ae58985c23b86142",
+        "type": "http in",
+        "z": "06a54b7b76e2798c",
+        "name": "",
+        "url": "/cardapioRest",
+        "method": "get",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 180,
+        "wires": [
+            [
+                "72eab77dd8c935ce"
+            ]
+        ]
+    },
+    {
+        "id": "278c8dc59273f7fc",
+        "type": "http response",
+        "z": "06a54b7b76e2798c",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 630,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "e9fbbfdb7bcde37d",
+        "type": "http in",
+        "z": "06a54b7b76e2798c",
+        "name": "",
+        "url": "/cardapioRest",
+        "method": "post",
+        "upload": false,
+        "skipBodyParsing": true,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 320,
+        "wires": [
+            [
+                "40aa14de2f030a15"
+            ]
+        ]
+    },
+    {
+        "id": "f37885159ea9be30",
+        "type": "http response",
+        "z": "06a54b7b76e2798c",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 990,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "72eab77dd8c935ce",
+        "type": "function",
+        "z": "06a54b7b76e2798c",
+        "name": "function 4",
+        "func": "let cardapio = flow.get('cardapio');\n\nif (!cardapio) {\n    cardapio = {\n        \"itens\": [\n            // Item 1\n            {\n                \"id\": 1,\n                \"tipo\": \"prato\",\n                \"nome\": \"Pizza Margherita\",\n                \"preco\": 35,\n                \"descricao\": \"Clássica com tomate, mussarela e manjericão\",\n                \"tempo_preparo\": \"20 min\",\n                \"quantidade\": 10\n            },\n            // Item 2\n            {\n                \"id\": 2,\n                \"tipo\": \"prato\",\n                \"nome\": \"Hambúrguer Artesanal\",\n                \"preco\": 28,\n                \"descricao\": \"Pão brioche, carne angus, queijo e molho especial\",\n                \"tempo_preparo\": \"15 min\",\n                \"quantidade\": 15\n            },\n            // Item 3\n            {\n                \"id\": 3,\n                \"tipo\": \"bebida\",\n                \"nome\": \"Coca-Cola Lata\",\n                \"preco\": 6,\n                \"descricao\": \"350ml gelada\",\n                \"tempo_preparo\": \"Imediato\",\n                \"quantidade\": 50\n            },\n            // Item 4\n            {\n                \"id\": 4,\n                \"tipo\": \"bebida\",\n                \"nome\": \"Suco Natural de Laranja\",\n                \"preco\": 8,\n                \"descricao\": \"Feito na hora\",\n                \"tempo_preparo\": \"5 min\",\n                \"quantidade\": 20\n            },\n            {\n                \"id\": 5,\n                \"tipo\": \"prato\",\n                \"nome\": \"Lasanha à Bolonhesa\",\n                \"preco\": 45,\n                \"descricao\": \"Camadas de massa, molho bolonhesa e queijo\",\n                \"tempo_preparo\": \"30 min\",\n                \"quantidade\": 8\n            }\n        ]\n    };\n    flow.set('cardapio', cardapio);\n}\n\n// O payload da mensagem será o conteúdo do cardápio armazenado no contexto,\n// seja ele o inicial ou um que foi modificado por um POST.\nmsg.payload = cardapio;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 180,
+        "wires": [
+            [
+                "278c8dc59273f7fc"
+            ]
+        ]
+    },
+    {
+        "id": "a7c41e6160d6bd2e",
+        "type": "function",
+        "z": "06a54b7b76e2798c",
+        "name": "function 5",
+        "func": "node.warn(`Payload recebido: ${JSON.stringify(msg.payload)}`);\nlet cardapio = flow.get('cardapio') || { \"itens\": [] };\nlet novoItem = msg.payload;\n\nlet novoId = 1;\nif (cardapio.itens.length > 0) {\n    const ids = cardapio.itens.map(item => item.id);\n    novoId = Math.max(...ids) + 1;\n}\n\nnode.warn(`Próximo ID a ser gerado: ${novoId}`); // Adicione esta linha\nnovoItem.id = novoId;\nnode.warn(`Objeto antes de ser adicionado: ${JSON.stringify(novoItem)}`); // E esta linha\n\ncardapio.itens.push(novoItem);\nflow.set('cardapio', cardapio);\n\nmsg.payload = novoItem;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 320,
+        "wires": [
+            [
+                "2e5547e31d446286"
+            ]
+        ]
+    },
+    {
+        "id": "37d037aac9a54519",
+        "type": "split",
+        "z": "06a54b7b76e2798c",
+        "name": "",
+        "splt": "",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "property": "payload",
+        "x": 570,
+        "y": 320,
+        "wires": [
+            [
+                "a7c41e6160d6bd2e"
+            ]
+        ]
+    },
+    {
+        "id": "40aa14de2f030a15",
+        "type": "json",
+        "z": "06a54b7b76e2798c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 410,
+        "y": 320,
+        "wires": [
+            [
+                "37d037aac9a54519"
+            ]
+        ]
+    },
+    {
+        "id": "2e5547e31d446286",
+        "type": "join",
+        "z": "06a54b7b76e2798c",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": true,
+        "accumulate": false,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 870,
+        "y": 320,
+        "wires": [
+            [
+                "f37885159ea9be30"
+            ]
+        ]
+    }
+]

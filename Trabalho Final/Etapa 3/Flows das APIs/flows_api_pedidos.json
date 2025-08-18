@@ -1,0 +1,173 @@
+[
+    {
+        "id": "6bf6ffd7e60a5117",
+        "type": "tab",
+        "label": "Fluxo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3ef7c29898035f51",
+        "type": "http in",
+        "z": "6bf6ffd7e60a5117",
+        "name": "",
+        "url": "/pedidos",
+        "method": "post",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 220,
+        "y": 240,
+        "wires": [
+            [
+                "6b6ff61c0b0155e2"
+            ]
+        ]
+    },
+    {
+        "id": "935dbf2aee07811a",
+        "type": "http response",
+        "z": "6bf6ffd7e60a5117",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 770,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "8f2e829a5a5dcf2d",
+        "type": "function",
+        "z": "6bf6ffd7e60a5117",
+        "name": "function 1",
+        "func": "// Se o pedido veio como string, parse para objeto\nlet pedido = (typeof msg.payload === \"string\") ? JSON.parse(msg.payload) : msg.payload;\n\npedido.recebidoEm = new Date().toISOString();\n\n// Recupera fila atual ou cria nova\nlet fila = flow.get(\"filaPedidos\") || [];\nfila.push(pedido);\nflow.set(\"filaPedidos\", fila);\n\n// Resposta HTTP\nmsg.statusCode = 201;\nmsg.payload = { \n    message: \"Pedido registrado na lista de espera com sucesso!\",\n    idPedido: pedido.id,\n    total: pedido.valorTotal\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 240,
+        "wires": [
+            [
+                "935dbf2aee07811a"
+            ]
+        ]
+    },
+    {
+        "id": "6b6ff61c0b0155e2",
+        "type": "json",
+        "z": "6bf6ffd7e60a5117",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 430,
+        "y": 240,
+        "wires": [
+            [
+                "8f2e829a5a5dcf2d"
+            ]
+        ]
+    },
+    {
+        "id": "de5b9cccb7204d9e",
+        "type": "http in",
+        "z": "6bf6ffd7e60a5117",
+        "name": "",
+        "url": "/pedidos",
+        "method": "get",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 360,
+        "wires": [
+            [
+                "fae8b6f3ac70a0d3"
+            ]
+        ]
+    },
+    {
+        "id": "69b796aca507bd44",
+        "type": "http response",
+        "z": "6bf6ffd7e60a5117",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 590,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "fae8b6f3ac70a0d3",
+        "type": "function",
+        "z": "6bf6ffd7e60a5117",
+        "name": "function 2",
+        "func": "let fila = flow.get(\"filaPedidos\");\nif (!Array.isArray(fila)) fila = []; // Força array se for inválido\n\n// Mesmo se não houver pedidos, devolvemos []\nmsg.statusCode = 200;\nmsg.payload = fila;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 360,
+        "wires": [
+            [
+                "69b796aca507bd44"
+            ]
+        ]
+    },
+    {
+        "id": "7be759a1d21fd5e5",
+        "type": "function",
+        "z": "6bf6ffd7e60a5117",
+        "name": "function 8",
+        "func": "let fila = flow.get(\"filaPedidos\");\nif (!Array.isArray(fila)) fila = [];\n\n// ID recebido da URL (Node-RED expõe em msg.req.params.id se usar node \"HTTP In\" com /pedidos/:id)\nlet idPedido = parseInt(msg.req.params.id);\n\n// Corpo com os novos dados do pedido\nlet pedidoAtualizado = msg.payload;\n\n// Procura o índice do pedido pelo idPedido\nlet index = fila.findIndex(p => p.idPedido === idPedido);\n\nif (index === -1) {\n    msg.statusCode = 404;\n    msg.payload = { erro: \"Pedido não encontrado\" };\n    return msg;\n}\n\n// Atualiza os dados do pedido existente (mantendo os demais atributos)\nfila[index] = { ...fila[index], ...pedidoAtualizado };\n\n// Salva de volta na memória\nflow.set(\"filaPedidos\", fila);\n\nmsg.statusCode = 200;\nmsg.payload = fila[index]; // devolve o pedido atualizado\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 480,
+        "wires": [
+            [
+                "eaed32130d1e2f74"
+            ]
+        ]
+    },
+    {
+        "id": "6598abded161f83b",
+        "type": "http in",
+        "z": "6bf6ffd7e60a5117",
+        "name": "",
+        "url": "/pedidos/:id",
+        "method": "put",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 240,
+        "y": 480,
+        "wires": [
+            [
+                "7be759a1d21fd5e5"
+            ]
+        ]
+    },
+    {
+        "id": "eaed32130d1e2f74",
+        "type": "http response",
+        "z": "6bf6ffd7e60a5117",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 730,
+        "y": 480,
+        "wires": []
+    }
+]
